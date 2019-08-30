@@ -1,0 +1,8 @@
+# sample .env file - rename to .env
+DB_USER=
+DB_DATABASE=
+DB_PASSWORD=
+DB_HOST=
+DB_PORT=
+SESSION_SECRET=
+DB_URI=

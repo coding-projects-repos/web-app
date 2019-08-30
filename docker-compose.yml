@@ -1,0 +1,11 @@
+version: "3"
+services:
+  app:
+    image: node:10-alpine
+    command: "npm run dev"
+    volumes:
+      - .:/usr/ydb2/
+    working_dir: /usr/ydb2/
+    ports:
+    - "8000:8000"
+    - "8888:8888"
