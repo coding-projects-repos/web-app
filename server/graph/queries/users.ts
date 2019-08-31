@@ -1,6 +1,4 @@
-import * as express from 'express';
 import { GraphQLInt, GraphQLNonNull } from 'graphql';
-import { AuthenticationError } from 'apollo-server';
 import { Users } from 'server/models';
 import userType from 'server/graph/types/userType';
 import paginationType from './lib/paginationType';
