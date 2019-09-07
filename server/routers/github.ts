@@ -6,7 +6,7 @@ const router = asyncRouter();
 
 interface GithubRepo {
   name: string;
-  url: string;
+  html_url: string;
 }
 
 // repos we dont want to show as a list
@@ -14,7 +14,7 @@ const EXCLUDE_REPOS = ['project-template', 'web-app'];
 
 function extractRepoFields(repo: GithubRepo) {
   return {
-    url: repo.url,
+    url: repo.html_url,
     name: repo.name,
   };
 }
