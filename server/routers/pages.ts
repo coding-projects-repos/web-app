@@ -8,12 +8,15 @@ router.get('/', (req: express.Request, res: express.Response) => {
   nextjs.render(req, res, '/');
 });
 
-router.get('/login', (req: express.Request, res: express.Response) => {
-  nextjs.render(req, res, '/login');
+router.get('/create', (req: express.Request, res: express.Response) => {
+  nextjs.render(req, res, '/create');
 });
 
-router.get('/signup', (req: express.Request, res: express.Response) => {
-  nextjs.render(req, res, '/signup');
-});
+router.get(
+  '/create/complete',
+  (req: express.Request, res: express.Response) => {
+    nextjs.render(req, res, '/created', req.query);
+  },
+);
 
 export default router;

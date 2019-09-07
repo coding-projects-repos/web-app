@@ -3,16 +3,12 @@
     "baseUrl": ".",
     "paths": {
       "server/*": ["server/*"],
-      "client/*": ["client/*"],
-      "generated/*": ["generated-gql/*"]
+      "client/*": ["client/*"]
     },
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
-    "lib": [
-      "dom",
-      "es2017"
-    ],
+    "lib": ["dom", "es2017"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmit": true,
@@ -30,11 +26,5 @@
     "strictFunctionTypes": false,
     "resolveJsonModule": true
   },
-  "include": [
-    "client",
-    "server",
-    "pages",
-    "generated-gql",
-    "./types/**/*"
-  ]
+  "include": ["client", "server", "pages", "./types/**/*", "shared"]
 }
