@@ -12,6 +12,7 @@
     "nodemon": "./node_modules/nodemon/bin/nodemon.js",
     "next:build": "next build",
     "prod:build": "NODE_OPTIONS=--max_old_space_size=1024 next build",
+    "heroku-postbuild": "npm run prod:build",
     "lint:ts": "tslint -c tslint.json '**.ts*'",
     "pretty": "prettier --write client/**/*.ts* server/**/*.ts",
     "precommit": "lint-staged"
