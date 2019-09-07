@@ -4,18 +4,29 @@ import * as rp from 'request-promise';
 
 const router = asyncRouter();
 
-interface GithubRepo {
+// TODO currently an in-memory store, will move to redis soon
+let repoCache: Array<GithubRepo> = [];
+
+interface RawGithubRepo {
   name: string;
   html_url: string;
+  description: string;
+}
+
+interface GithubRepo {
+  name: string;
+  url: string;
+  description: string;
 }
 
 // repos we dont want to show as a list
 const EXCLUDE_REPOS = ['project-template', 'web-app'];
 
-function extractRepoFields(repo: GithubRepo) {
+function extractRepoFields(repo: RawGithubRepo) {
   return {
     url: repo.html_url,
     name: repo.name,
+    description: repo.description,
   };
 }
 
@@ -30,7 +41,7 @@ router.post(
         .json({ message: 'You must give your project a name' });
     }
 
-    let result: GithubRepo;
+    let result: RawGithubRepo;
     try {
       result = await rp.post({
         uri:
@@ -60,7 +71,15 @@ router.get(
   async (req: express.Request, res: express.Response) => {
     const { includeWIP } = req.query;
 
-    let results: Array<GithubRepo>;
+    if (repoCache.length) {
+      return res.json(repoCache);
+    }
+
+    setTimeout(() => {
+      repoCache = [];
+    }, 1000 * 60 * 5); // reset every 5m
+
+    let results: Array<RawGithubRepo>;
     try {
       results = await rp.get({
         uri:
@@ -79,11 +98,13 @@ router.get(
       results = results.filter(repo => !repo.name.endsWith('-WIP'));
     }
 
-    res.json(
-      results
-        .filter(repo => !EXCLUDE_REPOS.includes(repo.name))
-        .map(extractRepoFields),
-    );
+    const processedRepos = results
+      .filter(repo => !EXCLUDE_REPOS.includes(repo.name))
+      .map(extractRepoFields);
+
+    res.json(processedRepos);
+
+    repoCache = processedRepos;
   },
 );
 
