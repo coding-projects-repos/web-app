@@ -49,13 +49,11 @@ export default () => {
         ) : (
           <Card.Group>
             {repos.map(repo => (
-              <a href={repo.url}>
-                <Card>
-                  <Card.Content>
-                    <Card.Header>{repo.name}</Card.Header>
-                    <Card.Description>{repo.description}</Card.Description>
-                  </Card.Content>
-                </Card>
+              <a href={repo.url} className="ui card">
+                <Card.Content>
+                  <Card.Header>{repo.name}</Card.Header>
+                  <Card.Description>{repo.description}</Card.Description>
+                </Card.Content>
               </a>
             ))}
           </Card.Group>
